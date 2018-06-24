@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fzu.edu.dmxt.dao.RegisterDao">
+    <insert id="add" parameterType="Register" useGeneratedKeys="true" keyProperty="register_ID">
+        insert into register ( ip,course_ID,start_time,end_time,longitude,latitude,sign )
+        values (#{ip},#{course_ID},#{start_time},#{end_time},#{longitude},#{latitude},#{sign})
+    </insert>
+
+    <delete id="delete" parameterType="Register" >
+        delete from register where register_ID= #{register_ID}
+    </delete>
+
+    <select id="get" parameterType="_int" resultType="Register">
+        select * from register  where register_ID= #{register_ID}
+    </select>
+
+    <update id="update" parameterType="Register" >
+        update register set ip=#{ip},course_ID=#{course_ID},start_time=#{start_time},end_time=#{end_time},longitude=#{longitude},
+        latitude=#{latitude},sign=#{sign} where register_ID=#{register_ID}
+    </update>
+    <select id="list" resultType="Register">
+        select * from register
+    </select>
+
+    <select id="findRegister" parameterType="_int" resultType="Register">
+        select * from register  where course_ID= #{course_ID} AND sign=1
+    </select>
+
+    <select id="listRegister" parameterType="_int" resultType="Register">
+        select * from register  where course_ID= #{course_ID}
+    </select>
+
+
+</mapper>
+

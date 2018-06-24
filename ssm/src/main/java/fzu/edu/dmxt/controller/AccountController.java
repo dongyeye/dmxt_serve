@@ -27,24 +27,5 @@ public class AccountController {
         model.addAttribute("msg", "error");
         return "admin/login";
         //调用service方法
-//        int acc_type=0;
-//        System.out.println(acc_name+acc_pas+acc_type);
-//        Account account = accountService.get(acc_name,acc_pas,acc_type);
-//        //若有user则添加到model里并且跳转到成功页面
-//        if(account != null){
-//            User user = userServivce.get(account.getAcc_user_id());
-//            Role role = roleService.get(user.getRole_id());
-//            if(role.getRole_name().equals("学生")) {
-//                Map<String, Object> info = new HashMap<>();
-//                info.put("username",user.getUser_name());
-//                info.put("useronline",user.getUser_online());
-//                info.put("rolename",role.getRole_name());
-//                System.out.println(user.getUser_name() + role.getRole_name() );
-//                session.setAttribute("user", info);
-//                return "admin/home";
-//            }
-//        }
-//        model.addAttribute("msg", "error");
-//        return "admin/login";
     }
 }

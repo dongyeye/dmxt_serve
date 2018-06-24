@@ -11,7 +11,14 @@ public interface StudentDao {
 
     public List<Student> list(Page page);
 
+    public List<Student> listAll();
+
     public int total();
 
     int add(Student student);
+    void update(Student student);
+    void delete(Student student);
+    Student findbystudent_ID(int student_ID);
+    List<Student> findClassmate(Student student);
+    Student findByPhone(String tel);
 }

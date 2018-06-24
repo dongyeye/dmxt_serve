@@ -21,9 +21,9 @@
         update student set school=#{school},college=#{college},profession=#{profession},grade=#{grade},student_ID=#{student_ID},
         s_class=#{s_class},name=#{name},tel=#{tel},last_land_time=#{last_land_time},reg_time=#{reg_time},online=#{online} where id=#{id}
     </update>
-    <!--<select id="list" resultType="Student">-->
-        <!--select * from student-->
-    <!--</select>-->
+    <select id="listAll" resultType="Student">
+        select * from student
+    </select>
 
     <update id="updateOnline" parameterType="Student" >
         update student set online=#{online} where id=#{id}
@@ -39,5 +39,15 @@
     <select id="total" resultType="int">
         select count(*) from student
     </select>
+    <select id="findbystudent_ID" parameterType="_int" resultType="Student">
+        select * from student where student_ID=#{student_ID}
+    </select>
 
+    <select id="findClassmate" parameterType="Student" resultType="Student">
+        select * from student where school=#{school} AND college=#{college} AND profession=#{profession} AND grade=#{grade}
+    </select>
+
+    <select id="findByPhone" parameterType="String" resultType="Student">
+        select * from student where tel=#{tel}
+    </select>
 </mapper>

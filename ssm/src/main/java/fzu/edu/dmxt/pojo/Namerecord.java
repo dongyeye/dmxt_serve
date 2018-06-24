@@ -1,11 +1,25 @@
 package fzu.edu.dmxt.pojo;
 
+import java.util.List;
+
 public class Namerecord {
 
     private int id;
     private int course_ID;
-    private int student_ID;
+
+
+
+    private int sid;
     private int absence;
+
+
+
+
+    private Course course;
+
+
+
+    private Student student;
 
     public int getId() {
         return id;
@@ -23,12 +37,12 @@ public class Namerecord {
         this.course_ID = course_ID;
     }
 
-    public int getStudent_ID() {
-        return student_ID;
+    public int getSid() {
+        return sid;
     }
 
-    public void setStudent_ID(int student_ID) {
-        this.student_ID = student_ID;
+    public void setSid(int sid) {
+        this.sid = sid;
     }
 
     public int getAbsence() {
@@ -37,6 +51,20 @@ public class Namerecord {
 
     public void setAbsence(int absence) {
         this.absence = absence;
+    }
+    public Student getStudent() {
+        return student;
+    }
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
 

@@ -8,7 +8,10 @@ public class Teacher {
     private int id;
     private String school;
     private String college;
-    private String teacher_Id;
+
+
+
+    private String teacher_ID;
     private String name;
     private String tel;
     private String avatar;
@@ -42,12 +45,12 @@ public class Teacher {
         this.college = college;
     }
 
-    public String getTeacher_Id() {
-        return teacher_Id;
+    public String getTeacher_ID() {
+        return teacher_ID;
     }
 
-    public void setTeacher_Id(String teacher_Id) {
-        this.teacher_Id = teacher_Id;
+    public void setTeacher_ID(String teacher_ID) {
+        this.teacher_ID = teacher_ID;
     }
 
     public String getName() {

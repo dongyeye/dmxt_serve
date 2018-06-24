@@ -14,7 +14,7 @@ public class Student {
     private String name;
     private String tel;
     private String avatar;
-    private String sex;
+    private int sex;
     private Date last_land_time;
     private Date reg_time;
     private int online;
@@ -100,11 +100,11 @@ public class Student {
         this.avatar = avatar;
     }
 
-    public String getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

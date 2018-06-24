@@ -28,4 +28,8 @@
     <select id="list" resultType="Category">
         select * from  account
     </select>
+
+    <select id="updatePassword" parameterType="Account">
+        update account set login_credent=#{login_credent} where role_id=#{role_id} and S_T_id=#{S_T_id}
+    </select>
 </mapper>

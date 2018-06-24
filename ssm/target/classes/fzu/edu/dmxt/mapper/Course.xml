@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="fzu.edu.dmxt.dao.CourseDao">
-    <insert id="add" parameterType="Course" >
+    <insert id="add" parameterType="Course" useGeneratedKeys="true" keyProperty="id">
         insert into course ( course_number,course_name,teacherID,class_time,class_location )
         values (#{course_number},#{course_name},#{teacherID},#{class_time},#{class_location})
     </insert>
@@ -23,4 +23,12 @@
     <select id="list" resultType="Course">
         select * from course
     </select>
+    <select id="findByTeacher" resultType="Course" parameterType="_int">
+        select * from course where teacherID=#{teacherID}
+    </select>
+
+    <update id="updateCourseNumber" parameterType="Course" >
+        update course set course_number=#{course_number} where id=#{id}
+    </update>
+
 </mapper>

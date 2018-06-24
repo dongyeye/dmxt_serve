@@ -28,4 +28,9 @@ public class AccountServiceImpl implements AccountService {
     public  Account findByUsername(String acc_name){
         return accountDao.findByUsername(acc_name);
     }
+
+    @Override
+    public void updatePassword(Account account){
+        accountDao.updatePassword(account);
+    }
 }

@@ -17,44 +17,49 @@ public class PageController {
         return "admin/home";
     }
 
-    @RequestMapping("/teacher")
-    public String toTeacher(){
+    @RequestMapping("/blank")
+    public String toBlank(){
 
-        return "admin/teacher";
+        return "admin/blank";
     }
-    @RequestMapping("/table")
-    public String toTable(){
+    @RequestMapping("/cards")
+    public String toCards(){
 
-        return "admin/table";
+        return "admin/cards";
     }
-    @RequestMapping("/form")
-    public String toForm(){
+    @RequestMapping("/charts")
+    public String toCharts(){
 
-        return "admin/form";
+        return "admin/charts";
     }
-    @RequestMapping("/tab-panel")
-    public String toTab(){
+    @RequestMapping("/forgot-password")
+    public String toForgot(){
 
-        return "admin/tab-panel";
+        return "admin/forgot-password";
     }
-    @RequestMapping("/ui-elements")
-    public String toUi(){
+    @RequestMapping("/navbar")
+    public String toNavbar(){
 
-        return "admin/ui-elements";
+        return "admin/navbar";
     }
-    @RequestMapping("/chart")
-    public String toChart(){
+    @RequestMapping("/register")
+    public String toRegister(){
 
-        return "admin/chart";
+        return "admin/register";
     }
-    @RequestMapping("/empty")
-    public String toEmpty(){
+    @RequestMapping("/tables")
+    public String toTables(){
 
-        return "admin/empty";
+        return "admin/tables";
     }
     @RequestMapping("/test")
     public String toTest(){
 
         return "admin/test";
     }
+
+
+
+
+
 }

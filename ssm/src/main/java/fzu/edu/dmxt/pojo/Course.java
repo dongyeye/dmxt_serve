@@ -10,6 +10,9 @@ public class Course {
     private String class_location;
 
 
+
+    private Teacher teacher;
+
     public int getId() {
         return id;
     }
@@ -58,5 +61,11 @@ public class Course {
         this.class_location = class_location;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
 
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 }

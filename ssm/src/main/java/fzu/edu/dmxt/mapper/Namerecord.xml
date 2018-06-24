@@ -4,12 +4,52 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="fzu.edu.dmxt.dao.NamerecordDao">
-    <insert id="add" parameterType="Namerecord" >
-        insert into namerecord ( course_ID,student_ID,absence ) values (#{course_ID},#{student_ID},#{absence})
+    <resultMap id="NamerecordBean" type="Namerecord">
+        <id column="nid" property="id"></id>
+        <result column="course_ID" property="course_ID"></result>
+        <result column="sid" property="sid"></result>
+        <result column="absence" property="absence"></result>
+        <association property="student" javaType="Student">
+            <id column="_id" property="id"></id>
+            <result column="school" property="school"></result>
+            <result column="college" property="college"></result>
+            <result column="profession" property="profession"></result>
+            <result column="grade" property="grade"></result>
+            <result column="student_ID" property="student_ID"></result>
+            <result column="s_class" property="s_class"></result>
+            <result column="name" property="name"></result>
+            <result column="tel" property="tel"></result>
+            <result column="avatar" property="avatar"></result>
+            <result column="sex" property="sex"></result>
+            <result column="last_land_time" property="last_land_time"></result>
+            <result column="reg_time" property="reg_time"></result>
+            <result column="online" property="online"></result>
+        </association>
+    </resultMap>
+    <resultMap id="CourseInfoBean" type="Namerecord">
+        <id column="nid" property="id"></id>
+        <result column="course_ID" property="course_ID"></result>
+        <result column="sid" property="sid"></result>
+        <result column="absence" property="absence"></result>
+        <association property="course" javaType="Course">
+            <id column="cid" property="id"></id>
+            <result column="course_number" property="course_number"></result>
+            <result column="course_name" property="course_name"></result>
+            <result column="teachID" property="teachID"></result>
+            <result column="class_time" property="class_time"></result>
+            <result column="class_location" property="class_location"></result>
+            <association property="teacher" javaType="Teacher">
+                <id column="tid" property="id"></id>
+                <result column="name" property="name"></result>
+            </association>
+        </association>
+    </resultMap>
+    <insert id="add" parameterType="Namerecord" useGeneratedKeys="true" keyProperty="id">
+        insert into namerecord ( course_ID,sid,absence ) values (#{course_ID},#{sid},#{absence})
     </insert>
 
     <delete id="delete" parameterType="Namerecord" >
-        delete from namerecord where id= #{id}
+        delete from namerecord where course_ID= #{course_ID} AND sid=#{sid}
     </delete>
 
     <select id="get" parameterType="_int" resultType="Namerecord">
@@ -17,10 +57,27 @@
     </select>
 
     <update id="update" parameterType="Namerecord" >
-        update namerecord set course_ID=#{course_ID},student_ID=#{student_ID},absence=#{absence} where id=#{id}
+        update namerecord set course_ID=#{course_ID},sid=#{sid},absence=#{absence} where id=#{id}
     </update>
     <select id="list" resultType="Namerecord">
         select * from namerecord
     </select>
+
+    <select id="findByCourse" parameterType="_int" resultMap="NamerecordBean">
+        select n.*,s.*,n.id 'nid',s.id '_id' from namerecord n LEFT  JOIN student s on n.sid=s.id where n.course_ID= #{course_ID}
+    </select>
+
+    <select id="findByStudent" parameterType="_int" resultMap="CourseInfoBean">
+        select n.*,c.*,t.*,n.id 'nid',c.id 'cid',t.id 'tid' from namerecord n LEFT  JOIN course c on n.course_ID=c.id
+        LEFT JOIN teacher t on c.teacherID=t.id where n.sid= #{sid}
+    </select>
+
+    <select id="findNamerecord" parameterType="Namerecord" resultType="Namerecord">
+        select * from namerecord  where course_ID= #{course_ID} and sid=#{sid}
+    </select>
+
+    <delete id="deleteByCourse" parameterType="_int" >
+        delete from namerecord where course_ID= #{course_ID}
+    </delete>
 </mapper>
 

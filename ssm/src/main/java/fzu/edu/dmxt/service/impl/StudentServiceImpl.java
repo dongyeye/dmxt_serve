@@ -28,11 +28,36 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public List<Student> listAll() {
+        return studentDao.listAll();
+    }
+
+    @Override
     public int total() {
         return studentDao.total();
     }
     @Override
     public  int add(Student student){
         return studentDao.add(student);
+    }
+    @Override
+    public void update(Student student){
+        studentDao.update(student);
+    }
+    //Author:zyd
+    @Override
+    public void delete(Student student) {studentDao.delete(student);}
+    @Override
+    public Student findbystudent_ID(int student_ID) {
+        Student student=studentDao.findbystudent_ID(student_ID);
+        return student;
+    }
+    @Override
+    public List<Student> findClassmate(Student student){
+        return studentDao.findClassmate(student);
+    }
+    @Override
+    public Student findByPhone(String tel){
+        return studentDao.findByPhone(tel);
     }
 }

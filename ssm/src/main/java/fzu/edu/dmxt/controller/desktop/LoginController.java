@@ -32,8 +32,8 @@ public class LoginController {
     @RequestMapping(value = "/checkLogin",method = RequestMethod.POST,headers = "Accept=application/json")
     @ResponseBody
     public  Object checklogin(@RequestBody Map<String,String> map){
-        System.out.println("******");
-        System.out.println(map.get("username") + map.get("password"));
+        System.out.println("-------------checkLogin-------------");
+        System.out.println(map.get("username") + ' ' + map.get("password") + ' ' + map.get("logintype"));
         Map<String, Object> result = new HashMap<>();
         Account account = accountService.get(map.get("username"), map.get("password"),parseInt(map.get("logintype")));
         if (account!=null) {
@@ -42,9 +42,11 @@ public class LoginController {
                 Student student=studentService.get(account.getS_T_id());
                 student.setOnline(1);
                 studentService.updateOnline(student);
+                result.put("ID",student.getId());
                 result.put("username",student.getName());
                 result.put("useronline",student.getOnline());
                 result.put("rolename",role.getName());
+                result.put("student",student);
                 result.put("check",true);
                 return  result;
             }
@@ -52,6 +54,7 @@ public class LoginController {
                 Teacher teacher=teacherService.get(account.getS_T_id());
                 teacher.setOnline(1);
                 teacherService.updateOnline(teacher);
+                result.put("ID",teacher.getId());
                 result.put("username",teacher.getName());
                 result.put("useronline",teacher.getOnline());
                 result.put("rolename",role.getName());
@@ -67,6 +70,7 @@ public class LoginController {
     @ResponseBody
     public  Object registerStudent(@RequestBody Map<String,String> map){
         Student student=new Student();
+        System.out.println("-----------------register student----------------");
         System.out.println(map);
         student.setSchool(map.get("school"));
         student.setCollege(map.get("yard"));
@@ -89,9 +93,36 @@ public class LoginController {
         return result;
     }
 
+    @RequestMapping(value = "/registerTeacher",method = RequestMethod.POST,headers = "Accept=application/json")
+    @ResponseBody
+    public  Object registerTeacher(@RequestBody Map<String,String> map){
+        Teacher teacher=new Teacher();
+        System.out.println("-----------------register teacher----------------");
+        System.out.println(map);
+        teacher.setSchool(map.get("school"));
+        teacher.setCollege(map.get("yard"));
+        teacher.setTeacher_ID(map.get("teanum"));
+        teacher.setName(map.get("name"));
+        teacher.setTel(map.get("phoneNumber"));
+        teacher.setOnline(0);
+        teacherService.add(teacher);
+        Account account=new Account();
+        account.setAccount_number(map.get("nickname"));
+        account.setLogin_credent(map.get("password"));
+        account.setLanding_type(0);
+        account.setRole_id(2);
+        account.setS_T_id(teacher.getId());
+        accountService.add(account);
+        Map<String, Object> result = new HashMap<>();
+        result.put("result",true);
+        return result;
+    }
+
+
     @RequestMapping(value = "/judge",method = RequestMethod.POST,headers = "Accept=application/json")
     @ResponseBody
     public  Object judge(@RequestBody Map<String,String> map){
+        System.out.println("-----------------judge if repeat----------------");
         System.out.println(map.get("userName"));
         Account account = accountService.findByUsername(map.get("userName"));
         Map<String, Object> result = new HashMap<>();
@@ -104,9 +135,45 @@ public class LoginController {
     }
 
 
-//    @RequestMapping(value = "/registerTeacher",method = RequestMethod.POST,headers = "Accept=application/json")
-//    @ResponseBody
-//    public  Object registerTeacher(@RequestBody Map<String,String> map){
-//
-//    }
+    @RequestMapping(value = "/loginByPhone",method = RequestMethod.POST,headers = "Accept=application/json")
+    @ResponseBody
+    public  Object loginByPhone(@RequestBody Map<String,String> map){
+        System.out.println("-----------------login by phone----------------");
+        System.out.println(map);
+        Student student=studentService.findByPhone(map.get("tel"));
+        Teacher teacher=teacherService.findByPhone(map.get("tel"));
+        Map<String, Object> result = new HashMap<>();
+        int num=(int)(Math.random()*8999)+1000;
+        if(student!=null){
+            result.put("student",student);
+            result.put("message",num);
+        }
+        else if(teacher!=null){
+            result.put("teacher",teacher);
+            result.put("message",num);
+        }
+        else
+            result.put("exit",false);
+        return result;
+    }
+
+    @RequestMapping(value = "/editPassword",method = RequestMethod.POST,headers = "Accept=application/json")
+    @ResponseBody
+    public  Object editPassword(@RequestBody Map<String,String> map){
+        System.out.println("-----------------edit password----------------");
+        System.out.println(map);
+        Account account = new Account();
+        int role_id;
+        if(map.get("rolename").equals("学生"))
+            role_id=1;
+        else
+            role_id=2;
+        account.setRole_id(role_id);
+        account.setS_T_id(parseInt(map.get("ID")));
+        account.setLogin_credent(map.get("newpassword"));
+        accountService.updatePassword(account);
+        Map<String, Object> result = new HashMap<>();
+        result.put("result",true);
+        return result;
+    }
 }

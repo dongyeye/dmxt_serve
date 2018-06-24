@@ -17,7 +17,7 @@ public class AccountController {
 
     @RequestMapping("/checkLogin")
     public String checkLogin(String account_number, String login_credent, Model model, HttpSession session){
-        if(account_number.equals("admin")&&login_credent.equals("admin")){
+        if(account_number.equals("admin")&&login_credent.equals("123456")){
             Map<String, Object> info = new HashMap<>();
             info.put("username",account_number);
             info.put("rolename","管理员");
